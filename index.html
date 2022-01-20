@@ -5,84 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mon sorire</title>
-	<style>
-		html,body { 
-			margin: 0%;
-			overflow: hidden ; 
-			font-family: sans-serif;
-			user-select: none;
-		}
-		@media (hover: none) {
-			a:hover { color: inherit; }
-		}
-		.main{
-			margin: 0%;
-			width: 95%;
-			height: 30px;
-			position: absolute;
-			background-color: #425a422e;
-			border-radius: 4px;
-			top: 40px;
-			left: 2.5%;
-			/* display: -webkit-inline-box; */
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 1em;
-		}
-		.option{
-			width: 50%;
-			height: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 1em;
-			font-family: fangsong;
-			z-index: 2;
-		}
-
-		.selected{
-			background: #fff;
-			width: 49%;
-			height: 22px;
-			/* border: solid 1px; */
-			left: 3px;
-			border-radius: 4px;
-			position: absolute;
-			z-index: 1;
-			box-shadow: 2px 1px 5px 1px #aaaaaa;
-			transition: left 0.3s ease-in-out;;
-
-
-		}
-
-		.switchss {
-			/* position: absolute;
-			width: calc(50% - 4px);
-			height: calc(100% - 4px);
-			margin-left: 2px;
-			margin-right: 2px; 
-			border-radius: 10px;*/
-			background-color: #ffffff;
-			transition: all 0.15s ease;
-			left: 0;
-			z-index: 1;
-			box-shadow: 0px 0px 4px 2px #80808052;
-			transition: left 0.3s ease-in-out;
-		}
-		/* .activeElement{
-			background-color: rgb(54, 201, 201);
-			width: 50%;
-			height: 100%;
-		} */
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="main" id="main">
-		<div class="option ">Item 1</div>
-		<div class="option">Item 2</div>
-		<div class="selected"></div>
+		<div class="option" id="item1">Item 1</div>
+		<div class="option"  id="item2">Item 2</div>
+		<div class="selected" id="selected"></div>
 	</div>
-	
+	<script src="index.js"></script>
 </body>
 </html>
