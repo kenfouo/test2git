@@ -1,18 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Mon sorire</title>
-	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="main" id="main">
-		<div class="option" id="item1">Item 1</div>
-		<div class="option"  id="item2">Item 2</div>
-		<div class="selected" id="selected"></div>
-	</div>
-	<script src="index.js"></script>
+    <div id="stickerParent">
+        <div class="categoryParent"><div id="more"></div></div>
+        <div id="parentDiv" class="parentDiv"></div>
+    </div>
+
+    <!-- <div id="go" style="width: fit-content;padding: 0px 10px 0 10px;height: 40px;border: solid #009688 1px;border-radius: 5px;color:#009688;text-align: center;line-height: 40px;">Show Bottom Sheet</div> -->
+
+    <div id="bottom-sheet" class="overlays">
+        <aside class="social" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+            <a href="#close" class="btn-close2" aria-hidden="true">X</a>
+            <div class="switcherParent" id="switcherParent">
+                <div class="option" id="item1">Item 1</div>
+                <div class="option"  id="item2">Item 2</div>
+                <div class="selected" id="selected"></div>
+            </div>
+        </aside>
+        <a href="#close" class="btn-close" aria-hidden="true"></a>
+    </div>
+
+	<!-- <script src="index.js"></script> -->
+    
+    <script>
+        window.onload = function name(params) {
+            var categoryParent = document.querySelector('.categoryParent');
+            var parentDiv      = document.querySelector('.parentDiv');
+            var jsonDatas      = new Object();
+            var stickers       = new Array();
+            var categorys      = new Array();
+
+            for (let i = 1; i < 60; i++) {
+                //continue;
+                var categoryID;
+                
+                (i > 0  && i <= 15)  ? categoryID = 1 : '';
+                (i > 15 && i <= 25)  ? categoryID = 2 : '';
+                (i > 25 && i <= 30)  ? categoryID = 3 : '';
+                (i > 30 && i <= 40)  ? categoryID = 4 : '';
+                (i > 40 && i <= 45)  ? categoryID = 5 : '';
+                (i > 45 && i <= 50)  ? categoryID = 6 : '';
+                (i > 50 && i <= 55)  ? categoryID = 7 : '';
+                (i > 55 && i <= 60)  ? categoryID = 8 : '';
+               
+                stickers.push(
+                    {
+                        stikerSrc  : './stickers/'+i+'.webp',
+                        stikerName : 'stiker_'+i,
+                        categoryID : categoryID
+                    }
+                );
+
+                const result = categorys.filter(category => category.categoryID === categoryID);
+                
+                if (result.length === 0) {
+                    categorys.push(
+                        {
+                            categorieImg : i+'.webp',
+                            categoryName : 'category_'+i,
+                            categoryID   : categoryID,
+                            loaded       : false
+                        }
+                    )
+                    
+                    categoryParent.innerHTML += '<div class="category_'+categoryID+'"><img  src="./stickers/'+i+'.webp"/></div>';
+                    parentDiv.innerHTML += '<div class="box" id="'+categoryID+'"></div>'; 
+                }
+            }
+
+            var categorieTab = new Array();
+
+            // define an observer instance
+            var observer = new IntersectionObserver(onIntersection, {
+                root: parentDiv,   // default is the viewport
+                threshold: .5 // percentage of taregt's visible area. Triggers "onIntersection"
+            })
+
+            function onIntersection(entries, opts){
+                
+                entries.forEach(entry =>{
+                    let  indice = parseInt(entry.target.id);
+                    if(entry.isIntersecting){
+                        console.log(indice)
+                        entry.target.classList.toggle('visible', true);
+
+                        
+                        if (categorys[indice - 1].loaded === false) {
+                            categorys[indice - 1].loaded = true;
+                            
+                            stickers.forEach(sticker => {
+                                if(sticker.categoryID == indice) entry.target.innerHTML += '<img class="sticker_'+sticker.categoryID+'" src="'+sticker.stikerSrc+'"/>';
+                            });
+                        }
+                        
+                        if (indice != null) {
+                            let  category = document.querySelector('.category_'+indice);
+                            category.style.backgroundColor = 'rgb(204 204 204 / 82%)';
+                        }
+                    }
+                    else
+                    {
+                        if (indice != null) {
+                            let  category = document.querySelector('.category_'+indice);
+                            category.style.backgroundColor = 'transparent';   
+                        }
+                        entry.target.classList.toggle('visible', false);
+                    }
+                });
+            }
+
+            for (let i = 1; i <= categorys.length; i++) {
+                let idCategorie = 'category_'+i;
+                let id = i
+                let elem =  document.getElementById(id);
+                let categorie_ = document.querySelector('.'+idCategorie);
+               
+                categorie_.onclick = () => {
+                    elem.scrollIntoView(true);
+                }
+                /* categorieTab.push(id); */
+                observer.observe(elem);
+            }
+               
+            var stickerParent = document.getElementById('stickerParent');
+            var close         = document.getElementById('close');
+            more.onclick = function(){
+                /* stickerParent.style.display = 'none'; */
+
+                window.location = "#bottom-sheet";
+            }
+            close.onclick = function(){
+                stickerParent.style.display = 'flex';
+            }
+        }
+    </script>
+
+    <script src="index.js"></script>
 </body>
 </html>
