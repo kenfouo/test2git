@@ -27,7 +27,7 @@ body ::-webkit-scrollbar{
     grid-template-rows: auto auto auto;
     grid-auto-flow: column;
     /* grid-template-columns: minmax(70px, 3fr); */
-    grid-template-columns: min-content;
+    grid-template-columns: minmax();
     grid-auto-rows: max-content;
     --auto-grid-min-size: 70px;
     padding: 0px;
