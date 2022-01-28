@@ -114,8 +114,9 @@
                             stickers.forEach(sticker => {
                                 if(sticker.categoryID == indice) entry.target.innerHTML += '<img class="sticker_'+sticker.categoryID+'" src="'+sticker.stikerSrc+'"/>';
                             });
+                           
                         }
-                        
+                        entry.target.scrollIntoView(true);
                         if (indice != null) {
                             let  category = document.querySelector('.category_'+indice);
                             category.style.backgroundColor = 'rgb(204 204 204 / 82%)';
@@ -152,9 +153,7 @@
 
                 window.location = "#bottom-sheet";
             }
-            /* close.onclick = function(){
-                stickerParent.style.display = 'flex';
-            } */
+            
         }
     </script>
 
